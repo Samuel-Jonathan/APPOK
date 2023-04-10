@@ -18,13 +18,13 @@ public class PokedexRequest extends AsyncTask<Void, Void, String> {
 
 
     private PokedexActivity pokedexActivity;
-    private ListView pokedex;
+    private ListView listePokemons;
     private String url;
 
 
-    public PokedexRequest(PokedexActivity pokedexActivity, ListView pokedex, String url){
+    public PokedexRequest(PokedexActivity pokedexActivity, ListView listePokemons, String url){
         this.pokedexActivity = pokedexActivity;
-        this.pokedex = pokedex;
+        this.listePokemons = listePokemons;
         this.url = url;
     }
 
@@ -95,7 +95,7 @@ public class PokedexRequest extends AsyncTask<Void, Void, String> {
         }
 
 
-        pokedex.setAdapter(itemsAdapter);
+        listePokemons.setAdapter(itemsAdapter);
 
 
     }

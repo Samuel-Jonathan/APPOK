@@ -38,7 +38,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         GifImageView pikachu = findViewById(R.id.pikachu);
 
         // Créer une animation de translation qui déplace l'image de 100 pixels vers la droite
-        TranslateAnimation animation = new TranslateAnimation(0, 600, 0, 0);
+        TranslateAnimation animation = new TranslateAnimation(0, 300, 0, 0);
         animation.setDuration(5000); // Durée de l'animation en millisecondes (5 secondes)
 
         // Démarrer l'animation

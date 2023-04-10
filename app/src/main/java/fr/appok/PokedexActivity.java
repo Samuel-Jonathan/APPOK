@@ -1,5 +1,6 @@
 package fr.appok;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -17,12 +18,19 @@ public class PokedexActivity extends AppCompatActivity {
         setContentView(R.layout.pokedex_activity);
 
 
-        ListView pokedex = findViewById(R.id.pokedex);
+        ListView listePokemons = findViewById(R.id.pokedex);
 
         
         // Appel de l'API en arrière-plan
-        new PokedexRequest(this, pokedex, "https://pokeapi.co/api/v2/pokemon?limit=151").execute();
+        new PokedexRequest(this, listePokemons, "https://pokeapi.co/api/v2/pokemon?limit=151").execute();
 
+        listePokemons.setOnItemClickListener((adapterView, view, position, id) -> {
+            String name = (String) adapterView.getItemAtPosition(position);
+
+            Intent intent = new Intent(PokedexActivity.this, PokemonActivity.class).putExtra("name", name);
+            startActivity(intent);
+
+        });
 
     }
 
