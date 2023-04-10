@@ -22,7 +22,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         //Affiche le splash screen pendant 5 secondes
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), PokedexActivity.class);
             startActivity(intent);
             finish();
         }, SPLASH_SCREEN_TIMEOUT);
