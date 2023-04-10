@@ -1,6 +1,9 @@
 package fr.appok;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,9 +16,15 @@ import java.net.URL;
 
 public class PokedexRequest extends AsyncTask<Void, Void, String> {
 
+
+    private PokedexActivity pokedexActivity;
+    private ListView pokedex;
     private String url;
 
-    public PokedexRequest(String url){
+
+    public PokedexRequest(PokedexActivity pokedexActivity, ListView pokedex, String url){
+        this.pokedexActivity = pokedexActivity;
+        this.pokedex = pokedex;
         this.url = url;
     }
 
@@ -60,7 +69,11 @@ public class PokedexRequest extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String jsonString) {
         super.onPostExecute(jsonString);
+        CustomArrayAdapter itemsAdapter = new CustomArrayAdapter(pokedexActivity, android.R.layout.simple_list_item_1, Color.BLACK);
+
         try {
+
+
             // Création de l'objet JSONObject pour le fichier JSON reçu
             JSONObject jsonObject = new JSONObject(jsonString);
 
@@ -74,14 +87,17 @@ public class PokedexRequest extends AsyncTask<Void, Void, String> {
                 JSONObject pokemonObject = jsonArray.getJSONObject(i);
 
                 // Récupération du nom du pokemon dans l'objet pokemon
-                String name = pokemonObject.getString("name");
+               itemsAdapter.add(pokemonObject.getString("name"));
 
-                // Affichage du nom du pokemon dans la console
-                System.out.println(name);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
+        pokedex.setAdapter(itemsAdapter);
+
+
     }
 
 }
