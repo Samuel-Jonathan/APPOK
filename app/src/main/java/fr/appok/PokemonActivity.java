@@ -16,9 +16,18 @@ public class PokemonActivity extends AppCompatActivity {
 
         //Récupère le nom du pokémon
         String nom = extras.get("name").toString();
-        System.out.println(nom);
+
         TextView name = findViewById(R.id.name);
         name.setText(nom);
+
+
+        TextView types = findViewById(R.id.types);
+
+
+        // Appel de l'API en arrière-plan
+        new PokemonRequest(this, types, "https://pokeapi.co/api/v2/pokemon/"+nom).execute();
+
+
 
     }
 
