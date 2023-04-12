@@ -44,12 +44,17 @@ public class RequestURLPokemons extends AsyncTask<Void, Void, String> {
         try {
 
             JSONObject data = new JSONObject(jsonString);
+
+            int id = data.getInt("id");
             JSONObject data2 = data.getJSONObject("sprites");
-            JSONObject data3 = data2.getJSONObject("other").getJSONObject("official-artwork");
+            JSONObject data3 = data2.getJSONObject("other").getJSONObject("home");
+            //JSONObject data3 = data2.getJSONObject("other").getJSONObject("official-artwork");
             String url = data3.getString("front_default");
 
             //Récupére les images des pokémons
-            new RequestImagesPokemons(pokedexAdapter,name,url, progressBar).execute();
+
+           RequestImagesPokemons requestImagesPokemons = new RequestImagesPokemons(pokedexAdapter,name,id,url, progressBar);
+            requestImagesPokemons.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } catch (JSONException e) {
             e.printStackTrace();

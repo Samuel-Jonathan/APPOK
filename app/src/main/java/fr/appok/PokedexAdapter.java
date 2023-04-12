@@ -1,6 +1,8 @@
 package fr.appok;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +10,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -29,10 +34,12 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.ViewHold
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.pokedex_activity, parent, false);
+        view.setBackgroundColor(Color.TRANSPARENT);
         return new ViewHolder(view);
     }
 
     // Méthode pour lier les données aux éléments de la RecyclerView
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         PokedexModel model = mData.get(position);
@@ -46,20 +53,16 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.ViewHold
         // Supprime la ProgressBar une fois l'image chargée
         holder.progressBar.setVisibility(View.GONE);
 
-        // Défini la couleur de fond du TextView
-        holder.textView.setBackgroundColor(Color.RED);
-
         // Détection du clic sur les images
         holder.imageView.setOnClickListener(view -> {
 
             if (mListener != null) {
-                mListener.onItemClick(position);
-                // Récupération de la TextView associée à l'ImageView cliqué
-                TextView associatedTextView = ((ViewGroup) view.getParent()).findViewById(R.id.namePokemon);
-                //Récupère le nom du pokémon
-                System.out.println(associatedTextView.getText());
+                mListener.onItemClick(position, model.getName());
             }
         });
+
+        //Trie les pokémons en fonction de l'id
+        Collections.sort(mData, Comparator.comparingInt(PokedexModel::getId));
     }
 
     // Méthode pour initialiser l'interface OnItemClickListener
@@ -89,6 +92,6 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.ViewHold
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(int position, String name);
     }
 }

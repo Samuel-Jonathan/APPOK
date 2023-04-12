@@ -29,13 +29,15 @@ public class RequestImagesPokemons extends AsyncTask<Void, Void, Bitmap> {
     // Déclaration des variables
     private PokedexAdapter pokedexAdapter;
     private String name;
+    private int id;
     private String url;
     private ProgressBar progressBar;
 
     // Constructeur
-    public RequestImagesPokemons(PokedexAdapter pokedexAdapter, String name, String url, ProgressBar progressBar){
+    public RequestImagesPokemons(PokedexAdapter pokedexAdapter, String name, int id, String url, ProgressBar progressBar){
         this.pokedexAdapter = pokedexAdapter;
         this.name = name;
+        this.id = id;
         this.url = url;
         this.progressBar = progressBar;
     }
@@ -52,7 +54,7 @@ public class RequestImagesPokemons extends AsyncTask<Void, Void, Bitmap> {
         if (result != null) {
 
             // Ajout du nom et de l'image du Pokémon dans la liste de données
-            PokedexActivity.data.add(new PokedexModel(name,  result));
+            PokedexActivity.data.add(new PokedexModel(name,  result, id));
             // Notification de l'adaptateur pour indiquer que les données ont été modifiées
             pokedexAdapter.notifyDataSetChanged();
 

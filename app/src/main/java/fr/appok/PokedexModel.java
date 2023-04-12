@@ -6,12 +6,14 @@ public class PokedexModel {
 
     private String name;
     private Bitmap bitmap;
+    private int id;
 
 
 
-    public PokedexModel(String name, Bitmap bitmap) {
+    public PokedexModel(String name, Bitmap bitmap, int id) {
         this.name = name;
         this.bitmap = bitmap;
+        this.id = id;
     }
 
 
@@ -22,5 +24,9 @@ public class PokedexModel {
 
     public Bitmap getBitmap() {
         return bitmap;
+    }
+
+    public int getId() {
+        return id;
     }
 }

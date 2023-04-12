@@ -1,7 +1,12 @@
 package fr.appok;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -26,6 +31,22 @@ public class PokedexActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pokedex_activity);
 
+        // Charger l'image de fond
+        Drawable background = getResources().getDrawable(R.drawable.test);
+
+        // Obtenir la taille de l'écran
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+
+        // Redimensionner l'image de fond
+        Bitmap bitmap = ((BitmapDrawable)background).getBitmap();
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
+
+        // Définir le background pour l'activité
+        getWindow().setBackgroundDrawable(new BitmapDrawable(getResources(), resizedBitmap));
+
         // Récupération de la vue RecyclerView
         listePokemons = findViewById(R.id.listePokemons);
 
@@ -38,9 +59,13 @@ public class PokedexActivity extends AppCompatActivity {
         // Récupération de la liste des Pokémon
         getPokemons(listePokemons, progressBar, adapter);
 
-        adapter.setOnItemClickListener(position -> {
+        adapter.setOnItemClickListener((position, name) -> {
 
+            Intent intent = new Intent(PokedexActivity.this, PokemonActivity.class);
 
+            System.out.println(name);
+            intent.putExtra("name", name);
+            startActivity(intent);
         });
 
     }
@@ -60,6 +85,6 @@ public class PokedexActivity extends AppCompatActivity {
                 outRect.bottom = spacing;
             }
         });
-        listePokemons.setLayoutManager(new GridLayoutManager(this, 2));
+        listePokemons.setLayoutManager(new GridLayoutManager(this, 3));
     }
 }

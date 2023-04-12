@@ -25,7 +25,7 @@ public class PokemonActivity extends AppCompatActivity {
 
 
         // Appel de l'API en arrière-plan
-     //   new PokemonRequest(this, types, "https://pokeapi.co/api/v2/pokemon/"+nom).execute();
+        new PokemonRequest(this, types, "https://pokeapi.co/api/v2/pokemon/"+nom).execute();
 
 
 
