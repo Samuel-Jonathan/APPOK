@@ -37,6 +37,12 @@ public class PokedexActivity extends AppCompatActivity {
 
         // Récupération de la liste des Pokémon
         getPokemons(listePokemons, progressBar, adapter);
+
+        adapter.setOnItemClickListener(position -> {
+
+
+        });
+
     }
 
     // Méthode qui va récupérer la liste des Pokémon de manière asynchrone
