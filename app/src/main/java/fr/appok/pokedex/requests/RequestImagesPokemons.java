@@ -43,9 +43,7 @@ public class RequestImagesPokemons extends AsyncTask<Void, Void, Bitmap> {
     // Méthode qui va récupérer l'image de manière asynchrone
     @Override
     protected Bitmap doInBackground(Void... voids) {
-
-        Request.requestBitmap(url);
-        return null;
+        return Request.requestBitmap(url);
     }
 
     // Méthode appelée quand la tâche asynchrone est terminée

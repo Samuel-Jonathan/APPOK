@@ -33,8 +33,7 @@ public class RequestAllPokemons extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... voids) {
-        Request.requestString(url);
-        return null;
+        return Request.requestString(url);
     }
 
     @Override
