@@ -1,4 +1,4 @@
-package fr.appok;
+package fr.appok.pokedex;
 
 import android.graphics.Bitmap;
 

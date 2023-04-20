@@ -1,8 +1,6 @@
-package fr.appok;
+package fr.appok.pokemon.requests;
 
-import android.graphics.Color;
 import android.os.AsyncTask;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -17,14 +15,16 @@ import java.net.URL;
 public class PokemonRequest extends AsyncTask<Void, Void, String> {
 
 
-    private PokemonActivity pokemonActivity;
-    private TextView types;
+    private TextView typesView;
+    private TextView weightView;
+    private TextView heightView;
     private String url;
 
 
-    public PokemonRequest(PokemonActivity pokemonActivity, TextView types, String url){
-        this.pokemonActivity = pokemonActivity;
-        this.types = types;
+    public PokemonRequest(TextView typesView, TextView weightView, TextView heightView, String url){
+        this.typesView = typesView;
+        this.weightView = weightView;
+        this.heightView = heightView;
         this.url = url;
     }
 
@@ -75,9 +75,12 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
             // Créer un objet JSON à partir de la chaîne JSON
             JSONObject jsonObject = new JSONObject(json);
 
+            double weight = jsonObject.getDouble("weight");
+            double height = jsonObject.getDouble("height");
+
+
             // Extraire l'array des types
             JSONArray typesArray = jsonObject.getJSONArray("types");
-
 
             StringBuilder typeBuilder = new StringBuilder();
 
@@ -90,9 +93,15 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
                 // Récupération du nom du pokemon dans l'objet pokemon
                 typeBuilder.append(typeName).append("\n");
 
-                types.setText(typeBuilder.toString());
+                typesView.setText(typeBuilder.toString());
 
             }
+
+            weightView.setText(String.valueOf(weight/10));
+
+            heightView.setText(String.valueOf(height/10));
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

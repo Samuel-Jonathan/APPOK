@@ -19,11 +19,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PokedexActivity"
+            android:name=".pokedex.PokedexActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".PokemonActivity"
+            android:name=".pokemon.PokemonActivity"
             android:exported="true">
         </activity>
     </application>

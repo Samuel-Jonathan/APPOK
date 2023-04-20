@@ -1,4 +1,4 @@
-package fr.appok;
+package fr.appok.pokedex;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.appok.pokedex.requests.RequestAllPokemons;
+import fr.appok.pokemon.PokemonActivity;
+import fr.appok.R;
+import fr.appok.pokedex.requests.RequestAllPokedex;
 
 public class PokedexActivity extends AppCompatActivity {
 
@@ -63,7 +65,6 @@ public class PokedexActivity extends AppCompatActivity {
 
             Intent intent = new Intent(PokedexActivity.this, PokemonActivity.class);
 
-            System.out.println(name);
             intent.putExtra("name", name);
             startActivity(intent);
         });
@@ -74,7 +75,7 @@ public class PokedexActivity extends AppCompatActivity {
     private void getPokemons(RecyclerView listePokemons, ProgressBar progressBar, PokedexAdapter adapter){
 
         // Lancement de la tâche asynchrone pour récupérer la liste des Pokémon
-        new RequestAllPokemons(adapter, "https://pokeapi.co/api/v2/pokemon?limit=151", progressBar).execute();
+        new RequestAllPokedex(adapter, "https://pokeapi.co/api/v2/pokemon?limit=151", progressBar).execute();
 
         // Configuration de la vue RecyclerView
         listePokemons.setAdapter(adapter);

@@ -1,35 +1,24 @@
-package fr.appok.pokedex.requests;
+package fr.appok.pokemon.requests;
 
 import android.os.AsyncTask;
-import android.widget.ProgressBar;
-
-import androidx.recyclerview.widget.RecyclerView;
+import android.widget.ImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import fr.appok.PokedexAdapter;
 import fr.appok.Request;
+import fr.appok.pokedex.requests.RequestImagesPokedex;
 
 public class RequestURLPokemons extends AsyncTask<Void, Void, String> {
 
-
-    private PokedexAdapter pokedexAdapter;
-    private String name;
     private String url;
-    private ProgressBar progressBar;
+    private ImageView imageView;
 
 
-    public RequestURLPokemons(PokedexAdapter pokedexAdapter, String name, String url, ProgressBar progressBar){
-        this.pokedexAdapter = pokedexAdapter;
-        this.name = name;
+    public RequestURLPokemons(String url, ImageView imageView){
         this.url = url;
-        this.progressBar = progressBar;
+        this.imageView = imageView;
+
     }
 
 
@@ -45,15 +34,13 @@ public class RequestURLPokemons extends AsyncTask<Void, Void, String> {
 
             JSONObject data = new JSONObject(jsonString);
 
-            int id = data.getInt("id");
             JSONObject data2 = data.getJSONObject("sprites");
             JSONObject data3 = data2.getJSONObject("other").getJSONObject("home");
             //JSONObject data3 = data2.getJSONObject("other").getJSONObject("official-artwork");
             String url = data3.getString("front_default");
 
             //Récupére les images des pokémons
-
-           RequestImagesPokemons requestImagesPokemons = new RequestImagesPokemons(pokedexAdapter,name,id,url, progressBar);
+            RequestImagesPokemon requestImagesPokemons = new RequestImagesPokemon(url, imageView);
             requestImagesPokemons.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } catch (JSONException e) {

@@ -1,30 +1,16 @@
 package fr.appok.pokedex.requests;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.sql.SQLOutput;
-
-import fr.appok.PokedexActivity;
-import fr.appok.PokedexAdapter;
-import fr.appok.PokedexModel;
+import fr.appok.pokedex.PokedexActivity;
+import fr.appok.pokedex.PokedexAdapter;
+import fr.appok.pokedex.PokedexModel;
 import fr.appok.Request;
 
-public class RequestImagesPokemons extends AsyncTask<Void, Void, Bitmap> {
+public class RequestImagesPokedex extends AsyncTask<Void, Void, Bitmap> {
 
     // Déclaration des variables
     private PokedexAdapter pokedexAdapter;
@@ -34,7 +20,7 @@ public class RequestImagesPokemons extends AsyncTask<Void, Void, Bitmap> {
     private ProgressBar progressBar;
 
     // Constructeur
-    public RequestImagesPokemons(PokedexAdapter pokedexAdapter, String name, int id, String url, ProgressBar progressBar){
+    public RequestImagesPokedex(PokedexAdapter pokedexAdapter, String name, int id, String url, ProgressBar progressBar){
         this.pokedexAdapter = pokedexAdapter;
         this.name = name;
         this.id = id;

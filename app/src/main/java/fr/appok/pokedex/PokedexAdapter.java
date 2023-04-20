@@ -1,6 +1,5 @@
-package fr.appok;
+package fr.appok.pokedex;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -16,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import fr.appok.R;
 
 
 public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.ViewHolder> {

@@ -4,30 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/pokedex">
+   >
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="224dp"
-        android:layout_height="83dp"
-        android:layout_marginStart="80dp"
+        android:layout_width="276dp"
+        android:layout_height="119dp"
+        android:layout_marginStart="64dp"
         android:src="@drawable/pokeapi_256"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.41" />
+        app:layout_constraintVertical_bias="0.078" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/pikachu"
         android:layout_width="165dp"
         android:layout_height="157dp"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="52dp"
         android:src="@drawable/pikachu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.607" />
+        app:layout_constraintVertical_bias="0.972" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
