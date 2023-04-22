@@ -46,6 +46,12 @@ public class RequestImagesPokedex extends AsyncTask<Void, Void, Bitmap> {
             // Ajout du nom et de l'image du Pokémon dans la liste de données
             PokedexActivity.data.add(new PokedexModel(name,  result, id));
 
+            progressBar.setProgress(progressBar.getProgress()+1);
+
+            System.out.println(progressBar.getProgress());
+
+
+
             // Notification de l'adaptateur pour indiquer que les données ont été modifiées
             pokedexAdapter.notifyDataSetChanged();
 

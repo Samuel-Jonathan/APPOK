@@ -50,7 +50,6 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.ViewHold
         // Défini l'image associée à l'élément de la RecyclerView
         holder.imageView.setImageBitmap(model.getBitmap());
 
-        System.out.println(PokedexActivity.data.size() );
 
         // Défini le texte associé à l'élément de la RecyclerView
         holder.textView.setText(model.getName());
@@ -61,7 +60,7 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.ViewHold
         // Détection du clic sur les images
         holder.imageView.setOnClickListener(view -> {
 
-            if (mListener != null && PokedexActivity.data.size() >= 151) {
+            if (mListener != null) {
                 mListener.onItemClick(position, model.getName());
 
             }

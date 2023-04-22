@@ -32,6 +32,7 @@ public class PokedexActivity extends AppCompatActivity {
     // Liste des données des Pokémon
     public static List<PokedexModel> data = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +56,6 @@ public class PokedexActivity extends AppCompatActivity {
 
         // Récupération de la vue RecyclerView
         listePokemons = findViewById(R.id.listePokemons);
-
-        listePokemons.setVisibility(View.INVISIBLE);
 
         // Récupération de la barre de progression
         ProgressBar progressBar = findViewById(R.id.progressBar);
