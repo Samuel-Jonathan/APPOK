@@ -1,6 +1,8 @@
 package fr.appok.pokemon.requests;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -14,18 +16,16 @@ import java.net.URL;
 
 public class PokemonRequest extends AsyncTask<Void, Void, String> {
 
-
+    private String url;
     private TextView typesView;
     private TextView weightView;
     private TextView heightView;
-    private String url;
 
-
-    public PokemonRequest(TextView typesView, TextView weightView, TextView heightView, String url){
+    public PokemonRequest(String url, TextView nameView, TextView typesView, TextView weightView, TextView heightView) {
+        this.url = url;
         this.typesView = typesView;
         this.weightView = weightView;
         this.heightView = heightView;
-        this.url = url;
     }
 
 
@@ -66,6 +66,7 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
         return null;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onPostExecute(String jsonString) {
         super.onPostExecute(jsonString);
@@ -82,24 +83,22 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
             // Extraire l'array des types
             JSONArray typesArray = jsonObject.getJSONArray("types");
 
-            StringBuilder typeBuilder = new StringBuilder();
+            StringBuilder types = new StringBuilder();
 
 
             // Parcourir chaque élément de l'array des types et extraire le nom du type
             for (int i = 0; i < typesArray.length(); i++) {
-
+                if(i >= 1) types.append(", ");
                 JSONObject typeObject = typesArray.getJSONObject(i).getJSONObject("type");
-                String typeName = typeObject.getString("name");
+                String type = typeObject.getString("name");
                 // Récupération du nom du pokemon dans l'objet pokemon
-                typeBuilder.append(typeName).append("\n");
-
-                typesView.setText(typeBuilder.toString());
-
+                types.append(type);
             }
 
-            weightView.setText(String.valueOf(weight/10));
+            typesView.setText("Types : " + types.toString());
+            weightView.setText("Weight : " + weight);
+            heightView.setText("Height : " + height);
 
-            heightView.setText(String.valueOf(height/10));
 
 
         } catch (JSONException e) {

@@ -5,12 +5,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.appok.R;
+import fr.appok.pokedex.PokedexActivity;
+import fr.appok.pokedex.PokedexAdapter;
+import fr.appok.pokedex.PokedexModel;
 import fr.appok.pokemon.requests.PokemonRequest;
 import fr.appok.pokemon.requests.RequestURLPokemons;
 
 public class PokemonActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,26 +28,19 @@ public class PokemonActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         //Récupère le nom du pokémon
-        String nom = extras.get("name").toString();
-
-        TextView name = findViewById(R.id.name);
-        name.setText(nom);
-
-
-        TextView types = findViewById(R.id.types);
-
-        TextView weight = findViewById(R.id.weight);
-
-        TextView height = findViewById(R.id.height);
+        String name = extras.get("name").toString();
 
         ImageView imageView = findViewById(R.id.image);
+        TextView nameView = findViewById(R.id.name);
+        TextView typesView = findViewById(R.id.types);
+        TextView weightView = findViewById(R.id.weight);
+        TextView heightView = findViewById(R.id.height);
 
 
         // Appel de l'API en arrière-plan
-        new PokemonRequest(types,weight,height, "https://pokeapi.co/api/v2/pokemon/"+nom).execute();
-        new RequestURLPokemons("https://pokeapi.co/api/v2/pokemon/"+nom, imageView).execute();
+        new PokemonRequest("https://pokeapi.co/api/v2/pokemon/"+name, nameView, typesView, weightView, heightView).execute();
 
-
+        new RequestURLPokemons("https://pokeapi.co/api/v2/pokemon/"+name, imageView).execute();
 
     }
 

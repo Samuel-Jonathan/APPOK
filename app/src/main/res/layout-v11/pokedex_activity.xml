@@ -34,7 +34,7 @@
         android:layout_height="22dp"
         android:text=""
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

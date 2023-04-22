@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.widget.ImageView;
 
 import fr.appok.Request;
+import fr.appok.pokemon.PokemonActivity;
 
 public class RequestImagesPokemon extends AsyncTask<Void, Void, Bitmap> {
 
@@ -13,7 +14,7 @@ public class RequestImagesPokemon extends AsyncTask<Void, Void, Bitmap> {
     private ImageView imageView;
 
     // Constructeur
-    public RequestImagesPokemon(String url, ImageView imageView){
+    public RequestImagesPokemon(String url, ImageView imageView) {
         this.url = url;
         this.imageView = imageView;
     }
@@ -28,7 +29,6 @@ public class RequestImagesPokemon extends AsyncTask<Void, Void, Bitmap> {
     @Override
     protected void onPostExecute(Bitmap result) {
         if (result != null) {
-
             imageView.setImageBitmap(result);
 
         }

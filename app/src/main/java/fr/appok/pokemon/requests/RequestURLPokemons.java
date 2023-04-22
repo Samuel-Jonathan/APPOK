@@ -7,18 +7,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.appok.Request;
-import fr.appok.pokedex.requests.RequestImagesPokedex;
 
 public class RequestURLPokemons extends AsyncTask<Void, Void, String> {
+
 
     private String url;
     private ImageView imageView;
 
+    public RequestURLPokemons(String url, ImageView imageView) {
 
-    public RequestURLPokemons(String url, ImageView imageView){
         this.url = url;
         this.imageView = imageView;
-
     }
 
 
