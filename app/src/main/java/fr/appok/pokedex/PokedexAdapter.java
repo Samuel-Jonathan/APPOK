@@ -1,6 +1,7 @@
 package fr.appok.pokedex;
 
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -48,6 +50,8 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.ViewHold
         // Défini l'image associée à l'élément de la RecyclerView
         holder.imageView.setImageBitmap(model.getBitmap());
 
+        System.out.println(PokedexActivity.data.size() );
+
         // Défini le texte associé à l'élément de la RecyclerView
         holder.textView.setText(model.getName());
 
@@ -57,8 +61,9 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.ViewHold
         // Détection du clic sur les images
         holder.imageView.setOnClickListener(view -> {
 
-            if (mListener != null) {
+            if (mListener != null && PokedexActivity.data.size() >= 151) {
                 mListener.onItemClick(position, model.getName());
+
             }
         });
 
@@ -86,7 +91,7 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.ViewHold
 
         public ViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.pokemon);
+            imageView = itemView.findViewById(R.id.imagePokedex);
             textView = itemView.findViewById(R.id.namePokemon);
             progressBar = itemView.findViewById(R.id.progressBar);
         }

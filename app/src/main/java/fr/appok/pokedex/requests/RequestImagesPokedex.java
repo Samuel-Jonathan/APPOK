@@ -1,9 +1,13 @@
 package fr.appok.pokedex.requests;
 
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import fr.appok.pokedex.PokedexActivity;
 import fr.appok.pokedex.PokedexAdapter;
@@ -41,11 +45,13 @@ public class RequestImagesPokedex extends AsyncTask<Void, Void, Bitmap> {
 
             // Ajout du nom et de l'image du Pokémon dans la liste de données
             PokedexActivity.data.add(new PokedexModel(name,  result, id));
+
             // Notification de l'adaptateur pour indiquer que les données ont été modifiées
             pokedexAdapter.notifyDataSetChanged();
 
-            // Si au moins une image a été récupérée, on masque la barre de progression
-            if(PokedexActivity.data.size() >= 1){
+            // Si toutes les image ont été chargées, on masque la barre de progression
+            if(PokedexActivity.data.size() >= 151){
+                PokedexActivity.listePokemons.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
             }
         }

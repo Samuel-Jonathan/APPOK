@@ -1,6 +1,8 @@
 package fr.appok.pokedex.requests;
 
+import android.media.Image;
 import android.os.AsyncTask;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import org.json.JSONException;
@@ -46,7 +48,7 @@ public class RequestURLPokedex extends AsyncTask<Void, Void, String> {
 
             //Récupére les images des pokémons
 
-            RequestImagesPokedex requestImagesPokemons = new RequestImagesPokedex(pokedexAdapter,name,id,url, progressBar);
+            RequestImagesPokedex requestImagesPokemons = new RequestImagesPokedex(pokedexAdapter,name,id,url,progressBar);
             requestImagesPokemons.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } catch (JSONException e) {

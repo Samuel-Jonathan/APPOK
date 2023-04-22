@@ -1,6 +1,7 @@
 package fr.appok.pokedex.requests;
 
 import android.os.AsyncTask;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import org.json.JSONArray;

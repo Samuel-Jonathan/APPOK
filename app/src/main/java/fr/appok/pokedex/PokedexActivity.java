@@ -8,8 +8,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +26,8 @@ import fr.appok.pokedex.requests.RequestAllPokedex;
 
 public class PokedexActivity extends AppCompatActivity {
 
-    private RecyclerView listePokemons;
+
+    public static RecyclerView listePokemons;
 
     // Liste des données des Pokémon
     public static List<PokedexModel> data = new ArrayList<>();
@@ -52,6 +56,8 @@ public class PokedexActivity extends AppCompatActivity {
         // Récupération de la vue RecyclerView
         listePokemons = findViewById(R.id.listePokemons);
 
+        listePokemons.setVisibility(View.INVISIBLE);
+
         // Récupération de la barre de progression
         ProgressBar progressBar = findViewById(R.id.progressBar);
 
@@ -63,11 +69,14 @@ public class PokedexActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener((position, name) -> {
 
-            Intent intent = new Intent(PokedexActivity.this, PokemonActivity.class);
+                Intent intent = new Intent(PokedexActivity.this, PokemonActivity.class);
 
-            intent.putExtra("name", name);
-            startActivity(intent);
+                intent.putExtra("name", name);
+                startActivity(intent);
+
         });
+
+
 
     }
 
@@ -75,7 +84,7 @@ public class PokedexActivity extends AppCompatActivity {
     private void getPokemons(RecyclerView listePokemons, ProgressBar progressBar, PokedexAdapter adapter){
 
         // Lancement de la tâche asynchrone pour récupérer la liste des Pokémon
-        new RequestAllPokedex(adapter, "https://pokeapi.co/api/v2/pokemon?limit=151", progressBar).execute();
+        new RequestAllPokedex(adapter, "https://pokeapi.co/api/v2/pokemon?limit=151",progressBar).execute();
 
         // Configuration de la vue RecyclerView
         listePokemons.setAdapter(adapter);
@@ -88,4 +97,6 @@ public class PokedexActivity extends AppCompatActivity {
         });
         listePokemons.setLayoutManager(new GridLayoutManager(this, 3));
     }
+
+
 }
