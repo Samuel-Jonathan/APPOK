@@ -1,8 +1,11 @@
 package fr.appok.pokemon;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +18,6 @@ import fr.appok.R;
 public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHolder> {
 
     private List<PokemonModel> mData;
-    private int scroll = 0;
 
     public PokemonAdapter(List<PokemonModel> data) {
         mData = data;
@@ -31,35 +33,21 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PokemonModel element = mData.get(position);
-        System.out.println(scroll);
+
         if(position == 0){
             holder.nameView.setText(element.getName());
             holder.typesView.setText(element.getTypes());
             holder.weightView.setText(element.getWeight());
             holder.heightView.setText(element.getHeight());
+            holder.imageView.setImageBitmap(element.getImage());
+
         }else if(position == 1){
-            holder.typesView.setText(element.getTypes());
-            holder.weightView.setText(element.getWeight());
+            holder.attackView.setVisibility(View.VISIBLE);
+            holder.defenseView.setVisibility(View.VISIBLE);
+            holder.attackView.setBackgroundColor(Color.BLACK);
+            holder.defenseView.setBackgroundColor(Color.RED);
         }
 
-        scroll++;
-
-        // Vérifier si la vue est déjà associée à un modèle de données
-       /* if (holder.itemView.getTag() == null || holder.itemView.getTag() != element) {
-            // La vue n'est pas associée à ce modèle de données, créer une nouvelle vue
-            holder.nameView.setText(element.getName());
-            holder.typesView.setText(element.getTypes());
-            holder.weightView.setText(element.getWeight());
-            holder.heightView.setText(element.getHeight());
-            System.out.println(element);
-            System.out.println(holder.itemView.getTag());
-            // Enregistrer le modèle de données comme tag de la vue pour la réutiliser plus tard
-            holder.itemView.setTag(element);
-        } else {
-            // La vue est déjà associée à ce modèle de données, simplement mettre à jour les données de la vue
-            holder.nameView.setText(element.getName());
-
-        }*/
     }
 
 
@@ -74,13 +62,20 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
         public TextView typesView;
         public TextView weightView;
         public TextView heightView;
+        public ImageView imageView;
+        public ProgressBar attackView;
+        public ProgressBar defenseView;
+
 
         public ViewHolder(View view) {
             super(view);
-            nameView = view.findViewById(R.id.nameView);
+          /*  nameView = view.findViewById(R.id.nameView);
             typesView = view.findViewById(R.id.typesView);
             weightView = view.findViewById(R.id.weightView);
             heightView = view.findViewById(R.id.heightView);
+            imageView = view.findViewById(R.id.imageView);
+            attackView = view.findViewById(R.id.attackView);
+            defenseView = view.findViewById(R.id.defense);*/
         }
     }
 }

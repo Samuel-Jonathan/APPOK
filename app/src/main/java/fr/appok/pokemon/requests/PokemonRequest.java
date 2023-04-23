@@ -3,6 +3,7 @@ package fr.appok.pokemon.requests;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -13,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 
 import fr.appok.pokemon.PokemonActivity;
 import fr.appok.pokemon.PokemonAdapter;
@@ -20,14 +22,24 @@ import fr.appok.pokemon.PokemonModel;
 
 public class PokemonRequest extends AsyncTask<Void, Void, String> {
 
-    private PokemonAdapter adapter;
-    private String url;
-    private String name;
 
-    public PokemonRequest(PokemonAdapter adapter, String url, String name) {
-        this.adapter = adapter;
+    private String url;
+    private TextView typesView;
+    private TextView weightView;
+    private TextView heightView;
+    private ProgressBar hpView;
+    private ProgressBar attackView;
+    private ProgressBar defenseView;
+
+
+    public PokemonRequest(String url, TextView typesView, TextView weightView, TextView heightView, ProgressBar hpView, ProgressBar attackView, ProgressBar defenseView) {
         this.url = url;
-        this.name = name;
+        this.typesView = typesView;
+        this.weightView = weightView;
+        this.heightView = heightView;
+        this.hpView = hpView;
+        this.attackView = attackView;
+        this.defenseView = defenseView;
     }
 
 
@@ -85,6 +97,9 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
             // Extraire l'array des types
             JSONArray typesArray = jsonObject.getJSONArray("types");
 
+            // Extraire le tableau "stats" de l'objet JSONObject
+            JSONArray statsArray = jsonObject.getJSONArray("stats");
+
             StringBuilder types = new StringBuilder();
 
 
@@ -97,17 +112,39 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
                 types.append(type);
             }
 
-            PokemonActivity.data.clear();
 
-            PokemonActivity.data.add(new PokemonModel(name,types.toString(),String.valueOf(weight),String.valueOf(height)));
-            PokemonActivity.data.add(new PokemonModel(name,types.toString(),String.valueOf(weight),String.valueOf(height)));
 
-            // Notification de l'adaptateur pour indiquer que les données ont été modifiées
-            adapter.notifyDataSetChanged();
+            // Boucle à travers le tableau "stats" pour extraire le nom de chaque statistique
+            for (int i = 0; i < statsArray.length(); i++) {
+                // Extraire l'objet JSONObject pour la statistique courante
+                JSONObject statObject = statsArray.getJSONObject(i);
 
-          /*  typesView.setText("Types : " + types.toString());
+                // Extraire l'objet JSONObject "stat" pour la statistique courante
+                JSONObject nameObject = statObject.getJSONObject("stat");
+
+
+                // Extraire la valeur de "base_stat" pour la statistique courante
+                int baseStat = statObject.getInt("base_stat");
+                if(i == 0){
+                    hpView.setProgress(baseStat);
+                }else if(i == 1){
+                    attackView.setProgress(baseStat);
+                }else if(i == 2){
+                    defenseView.setProgress(baseStat);
+                }
+
+
+
+            }
+
+
+
+
+            typesView.setText("Types : " + types);
             weightView.setText("Weight : " + weight);
-            heightView.setText("Height : " + height);*/
+            heightView.setText("Height : " + height);
+
+
 
 
 

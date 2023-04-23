@@ -1,5 +1,6 @@
 package fr.appok.pokemon.requests;
 
+import android.media.Image;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
@@ -7,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.appok.Request;
+import fr.appok.pokemon.PokemonAdapter;
 
 public class RequestURLPokemons extends AsyncTask<Void, Void, String> {
 
@@ -17,6 +19,7 @@ public class RequestURLPokemons extends AsyncTask<Void, Void, String> {
     public RequestURLPokemons(String url, ImageView imageView) {
 
         this.url = url;
+
         this.imageView = imageView;
     }
 
