@@ -14,18 +14,20 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import fr.appok.pokemon.PokemonActivity;
+import fr.appok.pokemon.PokemonAdapter;
+import fr.appok.pokemon.PokemonModel;
+
 public class PokemonRequest extends AsyncTask<Void, Void, String> {
 
+    private PokemonAdapter adapter;
     private String url;
-    private TextView typesView;
-    private TextView weightView;
-    private TextView heightView;
+    private String name;
 
-    public PokemonRequest(String url, TextView nameView, TextView typesView, TextView weightView, TextView heightView) {
+    public PokemonRequest(PokemonAdapter adapter, String url, String name) {
+        this.adapter = adapter;
         this.url = url;
-        this.typesView = typesView;
-        this.weightView = weightView;
-        this.heightView = heightView;
+        this.name = name;
     }
 
 
@@ -95,9 +97,17 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
                 types.append(type);
             }
 
-            typesView.setText("Types : " + types.toString());
+            PokemonActivity.data.clear();
+
+            PokemonActivity.data.add(new PokemonModel(name,types.toString(),String.valueOf(weight),String.valueOf(height)));
+            PokemonActivity.data.add(new PokemonModel(name,types.toString(),String.valueOf(weight),String.valueOf(height)));
+
+            // Notification de l'adaptateur pour indiquer que les données ont été modifiées
+            adapter.notifyDataSetChanged();
+
+          /*  typesView.setText("Types : " + types.toString());
             weightView.setText("Weight : " + weight);
-            heightView.setText("Height : " + height);
+            heightView.setText("Height : " + height);*/
 
 
 
