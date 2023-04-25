@@ -21,6 +21,7 @@ public class RequestImagePokemon extends AsyncTask<Void, Void, Bitmap> {
         this.imageView = imageView;
     }
 
+
     // Méthode qui va récupérer l'image de manière asynchrone
     @Override
     protected Bitmap doInBackground(Void... voids) {
@@ -31,10 +32,8 @@ public class RequestImagePokemon extends AsyncTask<Void, Void, Bitmap> {
     @Override
     protected void onPostExecute(Bitmap result) {
         if (result != null) {
-
             imageView.setImageBitmap(result);
-
-
         }
+
     }
 }

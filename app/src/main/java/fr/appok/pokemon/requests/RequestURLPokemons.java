@@ -17,9 +17,9 @@ public class RequestURLPokemons extends AsyncTask<Void, Void, String> {
     public RequestURLPokemons(String url, ImageView imageView) {
 
         this.url = url;
-
         this.imageView = imageView;
     }
+
 
 
     @Override
@@ -31,7 +31,7 @@ public class RequestURLPokemons extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String jsonString) {
         super.onPostExecute(jsonString);
         try {
-
+            System.out.println(jsonString);
             JSONObject data = new JSONObject(jsonString);
 
             JSONObject data2 = data.getJSONObject("sprites");
@@ -42,6 +42,7 @@ public class RequestURLPokemons extends AsyncTask<Void, Void, String> {
             //Récupére les images des pokémons
             RequestImagePokemon requestImagePokemons = new RequestImagePokemon(url, imageView);
             requestImagePokemons.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
 
         } catch (JSONException e) {
             e.printStackTrace();

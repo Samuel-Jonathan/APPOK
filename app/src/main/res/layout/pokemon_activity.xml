@@ -66,12 +66,60 @@
             android:layout_marginTop="-25dp"
             />
 
+        <ImageView
+            android:id="@+id/firstEvolution"
+            android:layout_width="99dp"
+            android:layout_height="104dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="140dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+
+        <ImageView
+            android:id="@+id/firstArrow"
+            android:layout_width="49dp"
+            android:layout_height="54dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="-70dp"
+            android:layout_marginEnd="65dp"
+            android:visibility="invisible"
+            android:src="@drawable/arrow"
+            tools:srcCompat="@drawable/arrow" />
+
+        <ImageView
+            android:id="@+id/secondEvolution"
+            android:layout_width="99dp"
+            android:layout_height="104dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="-85dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/secondArrow"
+            android:layout_width="49dp"
+            android:layout_height="54dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="-75dp"
+            android:layout_marginStart="65dp"
+            android:visibility="invisible"
+            android:src="@drawable/arrow"
+            tools:srcCompat="@drawable/arrow" />
+
+        <ImageView
+            android:id="@+id/thirdEvolution"
+            android:layout_width="99dp"
+            android:layout_height="104dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="140dp"
+            android:layout_marginTop="-85dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
 
         <TextView
             android:id="@+id/evolutionText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text=""
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="18sp"

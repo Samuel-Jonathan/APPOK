@@ -1,5 +1,6 @@
 package fr.appok.pokemon;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,11 +56,22 @@ public class PokemonActivity extends AppCompatActivity {
         ProgressBar speedProgressBar = findViewById(R.id.speedProgressBar);
         TextView evolutionText = findViewById(R.id.evolutionText);
 
+        ImageView firstEvolution = findViewById(R.id.firstEvolution);
+        ImageView secondEvolution = findViewById(R.id.secondEvolution);
+        ImageView thirdEvolution = findViewById(R.id.thirdEvolution);
+        ImageView firstArrow = findViewById(R.id.firstArrow);
+        ImageView secondArrow = findViewById(R.id.secondArrow);
+
+        List<ImageView> evolutions = new ArrayList<>();
+        evolutions.add(firstEvolution);
+        evolutions.add(secondEvolution);
+        evolutions.add(thirdEvolution);
+
 
         // Appel de l'API en arrière-plan
         new PokemonRequest("https://pokeapi.co/api/v2/pokemon/"+name,
                 typesText, weightText, heightText,
-                hpProgressBar, attackProgressBar, defenseProgressBar,specialAttackProgressBar, specialDefenseProgressBar,speedProgressBar, evolutionText).execute();
+                hpProgressBar, attackProgressBar, defenseProgressBar,specialAttackProgressBar, specialDefenseProgressBar,speedProgressBar, evolutionText, evolutions, firstArrow, secondArrow).execute();
 
         new RequestURLPokemons("https://pokeapi.co/api/v2/pokemon/"+name, imageView).execute();
 

@@ -2,6 +2,8 @@ package fr.appok.pokemon.requests;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -12,16 +14,23 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class RequestPokemonEvolution extends AsyncTask<Void, Void, String> {
 
 
     private String url;
     private TextView evolutionText;
+    private List<ImageView> evolutions;
+    private ImageView firstArrow;
+    private ImageView secondArrow;
 
-    public RequestPokemonEvolution(String url, TextView evolutionText) {
+    public RequestPokemonEvolution(String url, TextView evolutionText, List<ImageView> evolutions, ImageView firstArrow, ImageView secondArrow) {
         this.url = url;
         this.evolutionText = evolutionText;
+        this.evolutions = evolutions;
+        this.firstArrow = firstArrow;
+        this.secondArrow = secondArrow;
     }
 
     @Override
@@ -71,12 +80,41 @@ public class RequestPokemonEvolution extends AsyncTask<Void, Void, String> {
             JSONObject chain = json.getJSONObject("chain");
             JSONArray evolvesTo = chain.getJSONArray("evolves_to");
             StringBuilder name = new StringBuilder(chain.getJSONObject("species").getString("name"));
+
+            int index = 0;
+
+            if(evolvesTo.length() == 0){
+                firstArrow.setVisibility(View.GONE);
+                secondArrow.setVisibility(View.GONE);
+                evolutions.get(0).setVisibility(View.GONE);
+                evolutions.get(1).setVisibility(View.GONE);
+                evolutions.get(2).setVisibility(View.GONE);
+            }
             while (evolvesTo.length() > 0) {
+
+                if(index == 0){
+                    RequestURLPokemons requestURLPokemons = new RequestURLPokemons("https://pokeapi.co/api/v2/pokemon/"+name.toString(), evolutions.get(0));
+                    requestURLPokemons.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }
+
+                index++;
+
+
+                if(index == 1){
+                    firstArrow.setVisibility(View.VISIBLE);
+                }else if(index == 2){
+                    secondArrow.setVisibility(View.VISIBLE);
+                }
+
                 JSONObject nextEvolvesTo = evolvesTo.getJSONObject(0);
                 evolutionText.setText(name.append(" -> ").append(nextEvolvesTo.getJSONObject("species").getString("name")));
                 evolvesTo = nextEvolvesTo.getJSONArray("evolves_to");
+
+                RequestURLPokemons requestURLPokemons2 = new RequestURLPokemons("https://pokeapi.co/api/v2/pokemon/"+nextEvolvesTo.getJSONObject("species").getString("name"), evolutions.get(index));
+                requestURLPokemons2.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
             }
-            System.out.println(name);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

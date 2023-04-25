@@ -2,6 +2,7 @@ package fr.appok.pokemon.requests;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -11,16 +12,23 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class RequestPokemonID extends AsyncTask<Void, Void, String> {
 
 
     private String url;
     private TextView evolutionText;
+    private List<ImageView> evolutions;
+    private ImageView firstArrow;
+    private ImageView secondArrow;
 
-    public RequestPokemonID(String url, TextView evolutionText) {
+    public RequestPokemonID(String url, TextView evolutionText, List<ImageView> evolutions, ImageView firstArrow, ImageView secondArrow) {
         this.url = url;
         this.evolutionText = evolutionText;
+        this.evolutions = evolutions;
+        this.firstArrow = firstArrow;
+        this.secondArrow = secondArrow;
     }
 
     @Override
@@ -72,7 +80,7 @@ public class RequestPokemonID extends AsyncTask<Void, Void, String> {
             String url = evolutionChain.getString("url");
 
 
-            new RequestPokemonEvolution(url,evolutionText).execute();
+            new RequestPokemonEvolution(url,evolutionText, evolutions, firstArrow, secondArrow).execute();
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -2,6 +2,7 @@ package fr.appok.pokemon.requests;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class PokemonRequest extends AsyncTask<Void, Void, String> {
 
@@ -28,10 +30,15 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
     private ProgressBar specialDefenseProgressBar;
     private ProgressBar speedProgressBar;
     private TextView evolutionText;
+    private List<ImageView> evolutions;
+    private ImageView firstArrow;
+    private ImageView secondArrow;
 
     public PokemonRequest(String url, TextView typesText, TextView weightText,
                           TextView heightText, ProgressBar hpProgressBar, ProgressBar attackProgressBar,
-                          ProgressBar defenseProgressBar, ProgressBar specialAttackProgressBar, ProgressBar specialDefenseProgressBar, ProgressBar speedProgressBar, TextView evolutionText) {
+                          ProgressBar defenseProgressBar, ProgressBar specialAttackProgressBar, ProgressBar specialDefenseProgressBar,
+                          ProgressBar speedProgressBar, TextView evolutionText, List<ImageView> evolutions,
+                          ImageView firstArrow, ImageView secondArrow) {
         this.url = url;
         this.typesText = typesText;
         this.weightText = weightText;
@@ -43,6 +50,9 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
         this.specialDefenseProgressBar = specialDefenseProgressBar;
         this.speedProgressBar = speedProgressBar;
         this.evolutionText = evolutionText;
+        this.evolutions = evolutions;
+        this.firstArrow = firstArrow;
+        this.secondArrow = secondArrow;
     }
 
     @Override
@@ -150,9 +160,9 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
                 weightText.setText("Weight : " + weight);
                 heightText.setText("Height : " + height);
 
-                new RequestPokemonID("https://pokeapi.co/api/v2/pokemon-species/"+id, evolutionText).execute();
-
             }
+
+            new RequestPokemonID("https://pokeapi.co/api/v2/pokemon-species/"+id, evolutionText, evolutions, firstArrow, secondArrow).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
