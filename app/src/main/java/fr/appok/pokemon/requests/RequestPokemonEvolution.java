@@ -24,6 +24,9 @@ public class RequestPokemonEvolution extends AsyncTask<Void, Void, String> {
     private List<ImageView> evolutions;
     private ImageView firstArrow;
     private ImageView secondArrow;
+    public static String e1;
+    public static String e2;
+    public static String e3;
 
     public RequestPokemonEvolution(String url, TextView evolutionText, List<ImageView> evolutions, ImageView firstArrow, ImageView secondArrow) {
         this.url = url;
@@ -31,6 +34,7 @@ public class RequestPokemonEvolution extends AsyncTask<Void, Void, String> {
         this.evolutions = evolutions;
         this.firstArrow = firstArrow;
         this.secondArrow = secondArrow;
+
     }
 
     @Override
@@ -83,6 +87,8 @@ public class RequestPokemonEvolution extends AsyncTask<Void, Void, String> {
 
             int index = 0;
 
+            e1 = name.toString();
+
             if(evolvesTo.length() == 0){
                 firstArrow.setVisibility(View.GONE);
                 secondArrow.setVisibility(View.GONE);
@@ -100,18 +106,23 @@ public class RequestPokemonEvolution extends AsyncTask<Void, Void, String> {
                 index++;
 
 
-                if(index == 1){
-                    firstArrow.setVisibility(View.VISIBLE);
-                }else if(index == 2){
-                    secondArrow.setVisibility(View.VISIBLE);
-                }
-
                 JSONObject nextEvolvesTo = evolvesTo.getJSONObject(0);
                 evolutionText.setText(name.append(" -> ").append(nextEvolvesTo.getJSONObject("species").getString("name")));
                 evolvesTo = nextEvolvesTo.getJSONArray("evolves_to");
 
                 RequestURLPokemons requestURLPokemons2 = new RequestURLPokemons("https://pokeapi.co/api/v2/pokemon/"+nextEvolvesTo.getJSONObject("species").getString("name"), evolutions.get(index));
                 requestURLPokemons2.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+                switch (index) {
+                    case 1:
+                        firstArrow.setVisibility(View.VISIBLE);
+                        e2 = nextEvolvesTo.getJSONObject("species").getString("name");
+                        break;
+                    case 2:
+                        secondArrow.setVisibility(View.VISIBLE);
+                        e3 = nextEvolvesTo.getJSONObject("species").getString("name");
+                        break;
+                }
 
             }
 
@@ -120,4 +131,5 @@ public class RequestPokemonEvolution extends AsyncTask<Void, Void, String> {
         }
 
     }
+
 }

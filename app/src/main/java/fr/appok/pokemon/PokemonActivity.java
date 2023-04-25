@@ -1,5 +1,6 @@
 package fr.appok.pokemon;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import fr.appok.pokedex.PokedexActivity;
 import fr.appok.pokedex.PokedexAdapter;
 import fr.appok.pokedex.PokedexModel;
 import fr.appok.pokemon.requests.PokemonRequest;
+import fr.appok.pokemon.requests.RequestPokemonEvolution;
 import fr.appok.pokemon.requests.RequestPokemonID;
 import fr.appok.pokemon.requests.RequestURLPokemons;
 
@@ -71,9 +73,33 @@ public class PokemonActivity extends AppCompatActivity {
         // Appel de l'API en arrière-plan
         new PokemonRequest("https://pokeapi.co/api/v2/pokemon/"+name,
                 typesText, weightText, heightText,
-                hpProgressBar, attackProgressBar, defenseProgressBar,specialAttackProgressBar, specialDefenseProgressBar,speedProgressBar, evolutionText, evolutions, firstArrow, secondArrow).execute();
+                hpProgressBar, attackProgressBar, defenseProgressBar,
+                specialAttackProgressBar, specialDefenseProgressBar,
+                speedProgressBar, evolutionText, evolutions,
+                firstArrow, secondArrow).execute();
 
         new RequestURLPokemons("https://pokeapi.co/api/v2/pokemon/"+name, imageView).execute();
+
+        firstEvolution.setOnClickListener(e->{
+            Intent intent = new Intent(PokemonActivity.this, PokemonActivity.class);
+
+            intent.putExtra("name", RequestPokemonEvolution.e1);
+            startActivity(intent);
+        });
+
+        secondEvolution.setOnClickListener(e->{
+            Intent intent = new Intent(PokemonActivity.this, PokemonActivity.class);
+
+            intent.putExtra("name", RequestPokemonEvolution.e2);
+            startActivity(intent);
+        });
+
+        thirdEvolution.setOnClickListener(e->{
+            Intent intent = new Intent(PokemonActivity.this, PokemonActivity.class);
+
+            intent.putExtra("name", RequestPokemonEvolution.e3);
+            startActivity(intent);
+        });
 
 
 

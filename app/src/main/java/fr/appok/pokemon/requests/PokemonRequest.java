@@ -162,7 +162,8 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
 
             }
 
-            new RequestPokemonID("https://pokeapi.co/api/v2/pokemon-species/"+id, evolutionText, evolutions, firstArrow, secondArrow).execute();
+            RequestPokemonID requestPokemonID = new RequestPokemonID("https://pokeapi.co/api/v2/pokemon-species/"+id, evolutionText, evolutions, firstArrow, secondArrow);
+            requestPokemonID.execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }

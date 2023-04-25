@@ -23,6 +23,7 @@ public class RequestPokemonID extends AsyncTask<Void, Void, String> {
     private ImageView firstArrow;
     private ImageView secondArrow;
 
+
     public RequestPokemonID(String url, TextView evolutionText, List<ImageView> evolutions, ImageView firstArrow, ImageView secondArrow) {
         this.url = url;
         this.evolutionText = evolutionText;
@@ -80,11 +81,13 @@ public class RequestPokemonID extends AsyncTask<Void, Void, String> {
             String url = evolutionChain.getString("url");
 
 
-            new RequestPokemonEvolution(url,evolutionText, evolutions, firstArrow, secondArrow).execute();
+            RequestPokemonEvolution requestPokemonEvolution = new RequestPokemonEvolution(url,evolutionText, evolutions, firstArrow, secondArrow);
+            requestPokemonEvolution.execute();
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
+
 }
