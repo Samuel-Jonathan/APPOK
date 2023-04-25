@@ -24,24 +24,30 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
 
 
     private String url;
-    private TextView typesView;
-    private TextView weightView;
-    private TextView heightView;
-    private ProgressBar hpView;
-    private ProgressBar attackView;
-    private ProgressBar defenseView;
+    private TextView typesText;
+    private TextView weightText;
+    private TextView heightText;
+    private ProgressBar hpProgressBar;
+    private ProgressBar attackProgressBar;
+    private ProgressBar defenseProgressBar;
+    private ProgressBar specialAttackProgressBar;
+    private ProgressBar specialDefenseProgressBar;
+    private ProgressBar speedProgressBar;
 
-
-    public PokemonRequest(String url, TextView typesView, TextView weightView, TextView heightView, ProgressBar hpView, ProgressBar attackView, ProgressBar defenseView) {
+    public PokemonRequest(String url, TextView typesText, TextView weightText,
+                          TextView heightText, ProgressBar hpProgressBar, ProgressBar attackProgressBar,
+                          ProgressBar defenseProgressBar, ProgressBar specialAttackProgressBar, ProgressBar specialDefenseProgressBar, ProgressBar speedProgressBar) {
         this.url = url;
-        this.typesView = typesView;
-        this.weightView = weightView;
-        this.heightView = heightView;
-        this.hpView = hpView;
-        this.attackView = attackView;
-        this.defenseView = defenseView;
+        this.typesText = typesText;
+        this.weightText = weightText;
+        this.heightText = heightText;
+        this.hpProgressBar = hpProgressBar;
+        this.attackProgressBar = attackProgressBar;
+        this.defenseProgressBar = defenseProgressBar;
+        this.specialAttackProgressBar = specialAttackProgressBar;
+        this.specialDefenseProgressBar = specialDefenseProgressBar;
+        this.speedProgressBar = speedProgressBar;
     }
-
 
     @Override
     protected String doInBackground(Void... voids) {
@@ -119,18 +125,21 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
                 // Extraire l'objet JSONObject pour la statistique courante
                 JSONObject statObject = statsArray.getJSONObject(i);
 
-                // Extraire l'objet JSONObject "stat" pour la statistique courante
-                JSONObject nameObject = statObject.getJSONObject("stat");
-
 
                 // Extraire la valeur de "base_stat" pour la statistique courante
                 int baseStat = statObject.getInt("base_stat");
                 if(i == 0){
-                    hpView.setProgress(baseStat);
+                    hpProgressBar.setProgress(baseStat);
                 }else if(i == 1){
-                    attackView.setProgress(baseStat);
+                    attackProgressBar.setProgress(baseStat);
                 }else if(i == 2){
-                    defenseView.setProgress(baseStat);
+                    defenseProgressBar.setProgress(baseStat);
+                }else if(i == 3){
+                    specialAttackProgressBar.setProgress(baseStat);
+                }else if(i == 4){
+                    specialDefenseProgressBar.setProgress(baseStat);
+                }else if(i == 5){
+                    speedProgressBar.setProgress(baseStat);
                 }
 
 
@@ -140,9 +149,9 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
 
 
 
-            typesView.setText("Types : " + types);
-            weightView.setText("Weight : " + weight);
-            heightView.setText("Height : " + height);
+            typesText.setText("Types : " + types);
+            weightText.setText("Weight : " + weight);
+            heightText.setText("Height : " + height);
 
 
 

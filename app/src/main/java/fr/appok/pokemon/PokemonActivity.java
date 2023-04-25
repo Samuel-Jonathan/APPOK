@@ -37,35 +37,27 @@ public class PokemonActivity extends AppCompatActivity {
         //Récupère le nom du pokémon
         String name = extras.get("name").toString();
 
-        ImageView imageView = findViewById(R.id.imageView);
+        ImageView imageView = findViewById(R.id.pokemonImage);
 
-        TextView nameView = findViewById(R.id.nameView);
+        TextView nameView = findViewById(R.id.nameText);
 
         nameView.setText(name);
 
-        TextView typesView = findViewById(R.id.typesView);
-        TextView weightView = findViewById(R.id.weightView);
-        TextView heightView = findViewById(R.id.heightView);
-        ProgressBar hpView = findViewById(R.id.hpProgressBar);
-        ProgressBar attackView = findViewById(R.id.attackProgressBar);
-        ProgressBar defenseView = findViewById(R.id.defenseProgressBar);
-
-
-
-
-
-        /*LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(RecyclerView.VERTICAL);
-
-        RecyclerView recyclerView = findViewById(R.id.pokemon);
-        recyclerView.setLayoutManager(layoutManager);
-
-        PokemonAdapter adapter = new PokemonAdapter(data);
-        recyclerView.setAdapter(adapter);*/
+        TextView typesText = findViewById(R.id.typesText);
+        TextView weightText = findViewById(R.id.weightText);
+        TextView heightText = findViewById(R.id.heightText);
+        ProgressBar hpProgressBar = findViewById(R.id.hpProgressBar);
+        ProgressBar attackProgressBar = findViewById(R.id.attackProgressBar);
+        ProgressBar defenseProgressBar = findViewById(R.id.defenseProgressBar);
+        ProgressBar specialAttackProgressBar = findViewById(R.id.specialAttackProgressBar);
+        ProgressBar specialDefenseProgressBar = findViewById(R.id.specialDefenseProgressBar);
+        ProgressBar speedProgressBar = findViewById(R.id.speedProgressBar);
 
 
         // Appel de l'API en arrière-plan
-        new PokemonRequest("https://pokeapi.co/api/v2/pokemon/"+name, typesView, weightView, heightView, hpView, attackView, defenseView).execute();
+        new PokemonRequest("https://pokeapi.co/api/v2/pokemon/"+name,
+                typesText, weightText, heightText,
+                hpProgressBar, attackProgressBar, defenseProgressBar,specialAttackProgressBar, specialDefenseProgressBar,speedProgressBar).execute();
 
         new RequestURLPokemons("https://pokeapi.co/api/v2/pokemon/"+name, imageView).execute();
 
