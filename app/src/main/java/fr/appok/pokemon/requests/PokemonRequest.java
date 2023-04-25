@@ -2,7 +2,6 @@ package fr.appok.pokemon.requests;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -14,11 +13,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
-
-import fr.appok.pokemon.PokemonActivity;
-import fr.appok.pokemon.PokemonAdapter;
-import fr.appok.pokemon.PokemonModel;
 
 public class PokemonRequest extends AsyncTask<Void, Void, String> {
 
@@ -33,10 +27,11 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
     private ProgressBar specialAttackProgressBar;
     private ProgressBar specialDefenseProgressBar;
     private ProgressBar speedProgressBar;
+    private TextView evolutionText;
 
     public PokemonRequest(String url, TextView typesText, TextView weightText,
                           TextView heightText, ProgressBar hpProgressBar, ProgressBar attackProgressBar,
-                          ProgressBar defenseProgressBar, ProgressBar specialAttackProgressBar, ProgressBar specialDefenseProgressBar, ProgressBar speedProgressBar) {
+                          ProgressBar defenseProgressBar, ProgressBar specialAttackProgressBar, ProgressBar specialDefenseProgressBar, ProgressBar speedProgressBar, TextView evolutionText) {
         this.url = url;
         this.typesText = typesText;
         this.weightText = weightText;
@@ -47,6 +42,7 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
         this.specialAttackProgressBar = specialAttackProgressBar;
         this.specialDefenseProgressBar = specialDefenseProgressBar;
         this.speedProgressBar = speedProgressBar;
+        this.evolutionText = evolutionText;
     }
 
     @Override
@@ -92,10 +88,10 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
         super.onPostExecute(jsonString);
 
         try {
-            String json = jsonString;
             // Créer un objet JSON à partir de la chaîne JSON
-            JSONObject jsonObject = new JSONObject(json);
+            JSONObject jsonObject = new JSONObject(jsonString);
 
+            int id = jsonObject.getInt("id");
             double weight = jsonObject.getDouble("weight");
             double height = jsonObject.getDouble("height");
 
@@ -111,13 +107,12 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
 
             // Parcourir chaque élément de l'array des types et extraire le nom du type
             for (int i = 0; i < typesArray.length(); i++) {
-                if(i >= 1) types.append(", ");
+                if (i >= 1) types.append(", ");
                 JSONObject typeObject = typesArray.getJSONObject(i).getJSONObject("type");
                 String type = typeObject.getString("name");
                 // Récupération du nom du pokemon dans l'objet pokemon
                 types.append(type);
             }
-
 
 
             // Boucle à travers le tableau "stats" pour extraire le nom de chaque statistique
@@ -128,38 +123,38 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
 
                 // Extraire la valeur de "base_stat" pour la statistique courante
                 int baseStat = statObject.getInt("base_stat");
-                if(i == 0){
-                    hpProgressBar.setProgress(baseStat);
-                }else if(i == 1){
-                    attackProgressBar.setProgress(baseStat);
-                }else if(i == 2){
-                    defenseProgressBar.setProgress(baseStat);
-                }else if(i == 3){
-                    specialAttackProgressBar.setProgress(baseStat);
-                }else if(i == 4){
-                    specialDefenseProgressBar.setProgress(baseStat);
-                }else if(i == 5){
-                    speedProgressBar.setProgress(baseStat);
+
+                switch (i){
+                    case 0:
+                        hpProgressBar.setProgress(baseStat);
+                        break;
+                    case 1:
+                        attackProgressBar.setProgress(baseStat);
+                        break;
+                    case 2:
+                        defenseProgressBar.setProgress(baseStat);
+                        break;
+                    case 3:
+                        specialAttackProgressBar.setProgress(baseStat);
+                        break;
+                    case 4:
+                        specialDefenseProgressBar.setProgress(baseStat);
+                        break;
+                    case 5:
+                        speedProgressBar.setProgress(baseStat);
+                        break;
                 }
 
 
+                typesText.setText("Types : " + types);
+                weightText.setText("Weight : " + weight);
+                heightText.setText("Height : " + height);
+
+                new RequestPokemonID("https://pokeapi.co/api/v2/pokemon-species/"+id, evolutionText).execute();
 
             }
-
-
-
-
-            typesText.setText("Types : " + types);
-            weightText.setText("Weight : " + weight);
-            heightText.setText("Height : " + height);
-
-
-
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-
 }

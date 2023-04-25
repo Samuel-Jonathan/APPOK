@@ -36,7 +36,7 @@ public class PokedexActivity extends AppCompatActivity {
         setContentView(R.layout.pokedex_activity);
 
         // Charger l'image de fond
-        Drawable background = getResources().getDrawable(R.drawable.test);
+        Drawable background = getResources().getDrawable(R.drawable.background);
 
         // Obtenir la taille de l'écran
         DisplayMetrics metrics = new DisplayMetrics();

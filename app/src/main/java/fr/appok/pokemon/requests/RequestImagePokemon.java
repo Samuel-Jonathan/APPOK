@@ -5,11 +5,8 @@ import android.os.AsyncTask;
 import android.widget.ImageView;
 
 import fr.appok.Request;
-import fr.appok.pokemon.PokemonActivity;
-import fr.appok.pokemon.PokemonAdapter;
-import fr.appok.pokemon.PokemonModel;
 
-public class RequestImagesPokemon extends AsyncTask<Void, Void, Bitmap> {
+public class RequestImagePokemon extends AsyncTask<Void, Void, Bitmap> {
 
 
     // Déclaration des variables
@@ -18,7 +15,7 @@ public class RequestImagesPokemon extends AsyncTask<Void, Void, Bitmap> {
 
 
     // Constructeur
-    public RequestImagesPokemon(String url, ImageView imageView) {
+    public RequestImagePokemon(String url, ImageView imageView) {
 
         this.url = url;
         this.imageView = imageView;

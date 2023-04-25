@@ -21,6 +21,7 @@ import fr.appok.pokedex.PokedexActivity;
 import fr.appok.pokedex.PokedexAdapter;
 import fr.appok.pokedex.PokedexModel;
 import fr.appok.pokemon.requests.PokemonRequest;
+import fr.appok.pokemon.requests.RequestPokemonID;
 import fr.appok.pokemon.requests.RequestURLPokemons;
 
 public class PokemonActivity extends AppCompatActivity {
@@ -52,14 +53,17 @@ public class PokemonActivity extends AppCompatActivity {
         ProgressBar specialAttackProgressBar = findViewById(R.id.specialAttackProgressBar);
         ProgressBar specialDefenseProgressBar = findViewById(R.id.specialDefenseProgressBar);
         ProgressBar speedProgressBar = findViewById(R.id.speedProgressBar);
+        TextView evolutionText = findViewById(R.id.evolutionText);
 
 
         // Appel de l'API en arrière-plan
         new PokemonRequest("https://pokeapi.co/api/v2/pokemon/"+name,
                 typesText, weightText, heightText,
-                hpProgressBar, attackProgressBar, defenseProgressBar,specialAttackProgressBar, specialDefenseProgressBar,speedProgressBar).execute();
+                hpProgressBar, attackProgressBar, defenseProgressBar,specialAttackProgressBar, specialDefenseProgressBar,speedProgressBar, evolutionText).execute();
 
         new RequestURLPokemons("https://pokeapi.co/api/v2/pokemon/"+name, imageView).execute();
+
+
 
 
 
