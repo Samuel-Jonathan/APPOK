@@ -1,11 +1,13 @@
 package fr.appok.pokedex.requests;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +25,7 @@ public class RequestImagesPokedex extends AsyncTask<Void, Void, Bitmap> {
     private String url;
     private ProgressBar progressBar;
 
+
     // Constructeur
     public RequestImagesPokedex(PokedexAdapter pokedexAdapter, String name, int id, String url, ProgressBar progressBar){
         this.pokedexAdapter = pokedexAdapter;
@@ -39,6 +42,7 @@ public class RequestImagesPokedex extends AsyncTask<Void, Void, Bitmap> {
     }
 
     // Méthode appelée quand la tâche asynchrone est terminée
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onPostExecute(Bitmap result) {
         if (result != null) {
@@ -57,6 +61,7 @@ public class RequestImagesPokedex extends AsyncTask<Void, Void, Bitmap> {
             if(PokedexActivity.data.size() >= 151){
                 PokedexActivity.listePokemons.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
+
             }
         }
     }

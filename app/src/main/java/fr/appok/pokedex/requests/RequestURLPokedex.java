@@ -4,6 +4,7 @@ import android.media.Image;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +19,7 @@ public class RequestURLPokedex extends AsyncTask<Void, Void, String> {
     private String name;
     private String url;
     private ProgressBar progressBar;
+
 
 
     public RequestURLPokedex(PokedexAdapter pokedexAdapter, String name, String url, ProgressBar progressBar){

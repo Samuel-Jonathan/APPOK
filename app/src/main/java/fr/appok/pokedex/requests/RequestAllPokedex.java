@@ -3,6 +3,7 @@ package fr.appok.pokedex.requests;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,6 +18,7 @@ public class RequestAllPokedex extends AsyncTask<Void, Void, String> {
     private PokedexAdapter pokedexAdapter;
     private String url;
     private ProgressBar progressBar;
+
 
     public RequestAllPokedex(PokedexAdapter pokedexAdapter, String url, ProgressBar progressBar){
         this.pokedexAdapter = pokedexAdapter;

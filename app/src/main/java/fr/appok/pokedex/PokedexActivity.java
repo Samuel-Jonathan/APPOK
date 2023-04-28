@@ -8,7 +8,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -56,6 +58,7 @@ public class PokedexActivity extends AppCompatActivity {
 
         // Récupération de la barre de progression
         ProgressBar progressBar = findViewById(R.id.progressBar);
+
 
         // Initialisation de l'adaptateur avec les données des Pokémon
         PokedexAdapter adapter = new PokedexAdapter(PokedexActivity.data);

@@ -1,33 +1,27 @@
 package fr.appok.pokemon;
 
 import android.content.Intent;
-import android.media.Image;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.appok.R;
-import fr.appok.pokedex.PokedexActivity;
-import fr.appok.pokedex.PokedexAdapter;
-import fr.appok.pokedex.PokedexModel;
 import fr.appok.pokemon.requests.PokemonRequest;
 import fr.appok.pokemon.requests.RequestPokemonEvolution;
-import fr.appok.pokemon.requests.RequestPokemonID;
 import fr.appok.pokemon.requests.RequestURLPokemons;
 
 public class PokemonActivity extends AppCompatActivity {
+
 
 
     @Override
@@ -50,12 +44,21 @@ public class PokemonActivity extends AppCompatActivity {
         TextView typesText = findViewById(R.id.typesText);
         TextView weightText = findViewById(R.id.weightText);
         TextView heightText = findViewById(R.id.heightText);
+
         ProgressBar hpProgressBar = findViewById(R.id.hpProgressBar);
         ProgressBar attackProgressBar = findViewById(R.id.attackProgressBar);
         ProgressBar defenseProgressBar = findViewById(R.id.defenseProgressBar);
         ProgressBar specialAttackProgressBar = findViewById(R.id.specialAttackProgressBar);
         ProgressBar specialDefenseProgressBar = findViewById(R.id.specialDefenseProgressBar);
         ProgressBar speedProgressBar = findViewById(R.id.speedProgressBar);
+
+        TextView hpValue = findViewById(R.id.hpValue);
+        TextView attackValue = findViewById(R.id.attackValue);
+        TextView defenseValue = findViewById(R.id.defenseValue);
+        TextView specialAttackValue = findViewById(R.id.specialAttackValue);
+        TextView specialDefenseValue = findViewById(R.id.specialDefenseValue);
+        TextView speedValue = findViewById(R.id.speedValue);
+
         TextView evolutionText = findViewById(R.id.evolutionText);
 
         ImageView firstEvolution = findViewById(R.id.firstEvolution);
@@ -75,11 +78,11 @@ public class PokemonActivity extends AppCompatActivity {
                 typesText, weightText, heightText,
                 hpProgressBar, attackProgressBar, defenseProgressBar,
                 specialAttackProgressBar, specialDefenseProgressBar,
-                speedProgressBar, evolutionText, evolutions,
+                speedProgressBar, hpValue, attackValue,
+                defenseValue,specialAttackValue, specialDefenseValue, speedValue, evolutionText, evolutions,
                 firstArrow, secondArrow).execute();
 
         new RequestURLPokemons("https://pokeapi.co/api/v2/pokemon/"+name, imageView).execute();
-
         firstEvolution.setOnClickListener(e->{
             Intent intent = new Intent(PokemonActivity.this, PokemonActivity.class);
 
@@ -100,10 +103,6 @@ public class PokemonActivity extends AppCompatActivity {
             intent.putExtra("name", RequestPokemonEvolution.e3);
             startActivity(intent);
         });
-
-
-
-
 
     }
 

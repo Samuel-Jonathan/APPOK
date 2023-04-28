@@ -31,7 +31,6 @@ public class RequestURLPokemons extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String jsonString) {
         super.onPostExecute(jsonString);
         try {
-            System.out.println(jsonString);
             JSONObject data = new JSONObject(jsonString);
 
             JSONObject data2 = data.getJSONObject("sprites");

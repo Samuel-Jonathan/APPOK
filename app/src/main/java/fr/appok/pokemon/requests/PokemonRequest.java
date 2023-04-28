@@ -29,6 +29,12 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
     private ProgressBar specialAttackProgressBar;
     private ProgressBar specialDefenseProgressBar;
     private ProgressBar speedProgressBar;
+    private TextView hpValue;
+    private TextView attackValue;
+    private TextView defenseValue;
+    private TextView specialAttackValue;
+    private TextView specialDefenseValue;
+    private TextView speedValue;
     private TextView evolutionText;
     private List<ImageView> evolutions;
     private ImageView firstArrow;
@@ -37,7 +43,7 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
     public PokemonRequest(String url, TextView typesText, TextView weightText,
                           TextView heightText, ProgressBar hpProgressBar, ProgressBar attackProgressBar,
                           ProgressBar defenseProgressBar, ProgressBar specialAttackProgressBar, ProgressBar specialDefenseProgressBar,
-                          ProgressBar speedProgressBar, TextView evolutionText, List<ImageView> evolutions,
+                          ProgressBar speedProgressBar, TextView hpValue, TextView attackValue, TextView defenseValue, TextView specialAttackValue, TextView specialDefenseValue, TextView speedValue, TextView evolutionText, List<ImageView> evolutions,
                           ImageView firstArrow, ImageView secondArrow) {
         this.url = url;
         this.typesText = typesText;
@@ -49,6 +55,12 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
         this.specialAttackProgressBar = specialAttackProgressBar;
         this.specialDefenseProgressBar = specialDefenseProgressBar;
         this.speedProgressBar = speedProgressBar;
+        this.hpValue = hpValue;
+        this.attackValue = attackValue;
+        this.defenseValue = defenseValue;
+        this.specialAttackValue = specialAttackValue;
+        this.specialDefenseValue = specialDefenseValue;
+        this.speedValue = speedValue;
         this.evolutionText = evolutionText;
         this.evolutions = evolutions;
         this.firstArrow = firstArrow;
@@ -134,24 +146,33 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
                 // Extraire la valeur de "base_stat" pour la statistique courante
                 int baseStat = statObject.getInt("base_stat");
 
+
+
+
                 switch (i){
                     case 0:
                         hpProgressBar.setProgress(baseStat);
+                        hpValue.setText(baseStat + "/255");
                         break;
                     case 1:
                         attackProgressBar.setProgress(baseStat);
+                        attackValue.setText(baseStat + "/255");
                         break;
                     case 2:
                         defenseProgressBar.setProgress(baseStat);
+                        defenseValue.setText(baseStat + "/255");
                         break;
                     case 3:
                         specialAttackProgressBar.setProgress(baseStat);
+                        specialAttackValue.setText(baseStat + "/255");
                         break;
                     case 4:
                         specialDefenseProgressBar.setProgress(baseStat);
+                        specialDefenseValue.setText(baseStat + "/255");
                         break;
                     case 5:
                         speedProgressBar.setProgress(baseStat);
+                        speedValue.setText(baseStat + "/255");
                         break;
                 }
 
