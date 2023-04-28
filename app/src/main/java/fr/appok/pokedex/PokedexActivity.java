@@ -80,21 +80,21 @@ public class PokedexActivity extends AppCompatActivity {
     }
 
     // Méthode qui va récupérer la liste des Pokémon de manière asynchrone
-    private void getPokemons(RecyclerView listePokemons, ProgressBar progressBar, PokedexAdapter adapter){
+    private void getPokemons(RecyclerView pokedex, ProgressBar progressBar, PokedexAdapter adapter){
 
         // Lancement de la tâche asynchrone pour récupérer la liste des Pokémon
         new RequestAllPokedex(adapter, "https://pokeapi.co/api/v2/pokemon?limit=151",progressBar).execute();
 
         // Configuration de la vue RecyclerView
-        listePokemons.setAdapter(adapter);
+        pokedex.setAdapter(adapter);
         int spacing = -1200;
-        listePokemons.addItemDecoration(new RecyclerView.ItemDecoration() {
+        pokedex.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 outRect.bottom = spacing;
             }
         });
-        listePokemons.setLayoutManager(new GridLayoutManager(this, 3));
+        pokedex.setLayoutManager(new GridLayoutManager(this, 3));
     }
 
 
