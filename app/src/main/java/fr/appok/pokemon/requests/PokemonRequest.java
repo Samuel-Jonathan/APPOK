@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PokemonRequest extends AsyncTask<Void, Void, String> {
@@ -23,49 +24,31 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
     private TextView typesText;
     private TextView weightText;
     private TextView heightText;
-    private ProgressBar hpProgressBar;
-    private ProgressBar attackProgressBar;
-    private ProgressBar defenseProgressBar;
-    private ProgressBar specialAttackProgressBar;
-    private ProgressBar specialDefenseProgressBar;
-    private ProgressBar speedProgressBar;
-    private TextView hpValue;
-    private TextView attackValue;
-    private TextView defenseValue;
-    private TextView specialAttackValue;
-    private TextView specialDefenseValue;
-    private TextView speedValue;
+    private List<ProgressBar> progressBars;
+    private List<TextView> valuesText;
     private TextView evolutionText;
     private List<ImageView> evolutions;
     private ImageView firstArrow;
     private ImageView secondArrow;
 
     public PokemonRequest(String url, TextView typesText, TextView weightText,
-                          TextView heightText, ProgressBar hpProgressBar, ProgressBar attackProgressBar,
-                          ProgressBar defenseProgressBar, ProgressBar specialAttackProgressBar, ProgressBar specialDefenseProgressBar,
-                          ProgressBar speedProgressBar, TextView hpValue, TextView attackValue, TextView defenseValue, TextView specialAttackValue, TextView specialDefenseValue, TextView speedValue, TextView evolutionText, List<ImageView> evolutions,
+                          TextView heightText, List<ProgressBar> progressBars,
+                          List<TextView> valuesText, TextView evolutionText,
+                          List<ImageView> evolutions,
                           ImageView firstArrow, ImageView secondArrow) {
         this.url = url;
         this.typesText = typesText;
         this.weightText = weightText;
         this.heightText = heightText;
-        this.hpProgressBar = hpProgressBar;
-        this.attackProgressBar = attackProgressBar;
-        this.defenseProgressBar = defenseProgressBar;
-        this.specialAttackProgressBar = specialAttackProgressBar;
-        this.specialDefenseProgressBar = specialDefenseProgressBar;
-        this.speedProgressBar = speedProgressBar;
-        this.hpValue = hpValue;
-        this.attackValue = attackValue;
-        this.defenseValue = defenseValue;
-        this.specialAttackValue = specialAttackValue;
-        this.specialDefenseValue = specialDefenseValue;
-        this.speedValue = speedValue;
+        this.progressBars = progressBars;
+        this.valuesText = valuesText;
         this.evolutionText = evolutionText;
         this.evolutions = evolutions;
         this.firstArrow = firstArrow;
         this.secondArrow = secondArrow;
     }
+
+
 
     @Override
     protected String doInBackground(Void... voids) {
@@ -147,35 +130,9 @@ public class PokemonRequest extends AsyncTask<Void, Void, String> {
                 int baseStat = statObject.getInt("base_stat");
 
 
-
-
-                switch (i){
-                    case 0:
-                        hpProgressBar.setProgress(baseStat);
-                        hpValue.setText(baseStat + "/255");
-                        break;
-                    case 1:
-                        attackProgressBar.setProgress(baseStat);
-                        attackValue.setText(baseStat + "/255");
-                        break;
-                    case 2:
-                        defenseProgressBar.setProgress(baseStat);
-                        defenseValue.setText(baseStat + "/255");
-                        break;
-                    case 3:
-                        specialAttackProgressBar.setProgress(baseStat);
-                        specialAttackValue.setText(baseStat + "/255");
-                        break;
-                    case 4:
-                        specialDefenseProgressBar.setProgress(baseStat);
-                        specialDefenseValue.setText(baseStat + "/255");
-                        break;
-                    case 5:
-                        speedProgressBar.setProgress(baseStat);
-                        speedValue.setText(baseStat + "/255");
-                        break;
-                }
-
+                //Affiche les stats
+                progressBars.get(i).setProgress(baseStat);
+                valuesText.get(i).setText(baseStat + "/255");
 
                 typesText.setText("Types : " + types);
                 weightText.setText("Weight : " + weight);

@@ -17,13 +17,13 @@ public class RequestAllPokedex extends AsyncTask<Void, Void, String> {
 
     private PokedexAdapter pokedexAdapter;
     private String url;
-    private ProgressBar progressBar;
+    private ProgressBar pokedexProgressBar;
 
 
-    public RequestAllPokedex(PokedexAdapter pokedexAdapter, String url, ProgressBar progressBar){
+    public RequestAllPokedex(PokedexAdapter pokedexAdapter, String url, ProgressBar pokedexProgressBar){
         this.pokedexAdapter = pokedexAdapter;
         this.url = url;
-        this.progressBar = progressBar;
+        this.pokedexProgressBar = pokedexProgressBar;
     }
 
 
@@ -53,7 +53,7 @@ public class RequestAllPokedex extends AsyncTask<Void, Void, String> {
                 String name = pokemonObject.getString("name");
 
                 // Requête pour récupérer les url des images des pokémons
-                new RequestURLPokedex(pokedexAdapter, name, "https://pokeapi.co/api/v2/pokemon/"+name, progressBar).execute();
+                new RequestURLPokedex(pokedexAdapter, name, "https://pokeapi.co/api/v2/pokemon/"+name, pokedexProgressBar).execute();
 
             }
 

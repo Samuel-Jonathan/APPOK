@@ -23,16 +23,16 @@ public class RequestImagesPokedex extends AsyncTask<Void, Void, Bitmap> {
     private String name;
     private int id;
     private String url;
-    private ProgressBar progressBar;
+    private ProgressBar pokedexProgressBar;
 
 
     // Constructeur
-    public RequestImagesPokedex(PokedexAdapter pokedexAdapter, String name, int id, String url, ProgressBar progressBar){
+    public RequestImagesPokedex(PokedexAdapter pokedexAdapter, String name, int id, String url, ProgressBar pokedexProgressBar){
         this.pokedexAdapter = pokedexAdapter;
         this.name = name;
         this.id = id;
         this.url = url;
-        this.progressBar = progressBar;
+        this.pokedexProgressBar = pokedexProgressBar;
     }
 
     // Méthode qui va récupérer l'image de manière asynchrone
@@ -51,7 +51,7 @@ public class RequestImagesPokedex extends AsyncTask<Void, Void, Bitmap> {
             PokedexActivity.data.add(new PokedexModel(name,  result, id));
 
             //Augmente la barre de chargement
-            progressBar.setProgress(progressBar.getProgress()+1);
+            pokedexProgressBar.setProgress(pokedexProgressBar.getProgress()+1);
 
 
             // Notification de l'adaptateur pour indiquer que les données ont été modifiées
@@ -59,8 +59,8 @@ public class RequestImagesPokedex extends AsyncTask<Void, Void, Bitmap> {
 
             // Si toutes les image ont été chargées, on masque la barre de progression et on affiche le pokédex
             if(PokedexActivity.data.size() >= 151){
-                PokedexActivity.listePokemons.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.INVISIBLE);
+                PokedexActivity.pokedexRecycler.setVisibility(View.VISIBLE);
+                pokedexProgressBar.setVisibility(View.INVISIBLE);
 
             }
         }

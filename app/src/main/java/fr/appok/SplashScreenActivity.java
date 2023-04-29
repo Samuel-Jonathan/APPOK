@@ -2,6 +2,7 @@ package fr.appok;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,8 +26,24 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen_activity);
 
+
+
+        //Affiche le splash screen pendant 5 secondes
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(getApplicationContext(), PokedexActivity.class);
+            startActivity(intent);
+            finish();
+        }, SPLASH_SCREEN_TIMEOUT);
+
+        draw();
+
+
+    }
+
+    private void draw(){
+
         // Charger l'image de fond
-        Drawable background = getResources().getDrawable(R.drawable.splashscreen);
+        @SuppressLint("UseCompatLoadingForDrawables") Drawable background = getResources().getDrawable(R.drawable.splashscreen);
 
         // Obtenir la taille de l'écran
         DisplayMetrics metrics = new DisplayMetrics();
@@ -42,24 +59,11 @@ public class SplashScreenActivity extends AppCompatActivity {
         getWindow().setBackgroundDrawable(new BitmapDrawable(getResources(), resizedBitmap));
 
 
-        //Affiche le splash screen pendant 5 secondes
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(getApplicationContext(), PokedexActivity.class);
-            startActivity(intent);
-            finish();
-        }, SPLASH_SCREEN_TIMEOUT);
-
-        drawPikachu();
-
-
-    }
-
-    private void drawPikachu(){
         GifImageView pikachu = findViewById(R.id.pikachu);
 
-        // Créer une animation de translation qui déplace l'image de 100 pixels vers la droite
+        // Créer une animation de translation qui déplace l'image de 300 pixels vers la droite
         TranslateAnimation animation = new TranslateAnimation(0, 300, 0, 0);
-        animation.setDuration(3000); // Durée de l'animation en millisecondes (5 secondes)
+        animation.setDuration(SPLASH_SCREEN_TIMEOUT); // Durée de l'animation en millisecondes (3 secondes)
 
         // Démarrer l'animation
         pikachu.startAnimation(animation);

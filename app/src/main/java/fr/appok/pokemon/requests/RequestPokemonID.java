@@ -78,6 +78,7 @@ public class RequestPokemonID extends AsyncTask<Void, Void, String> {
             JSONObject jsonResponse = new JSONObject(jsonString);
             JSONObject evolutionChain = jsonResponse.getJSONObject("evolution_chain");
 
+            //Récupère l'url des évolutions
             String url = evolutionChain.getString("url");
 
 

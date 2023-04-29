@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,6 +34,7 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.ViewHold
     }
 
     // Méthode pour créer un ViewHolder pour chaque élément de la RecyclerView
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -48,17 +50,17 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.ViewHold
         PokedexModel model = mData.get(position);
 
         // Défini l'image associée à l'élément de la RecyclerView
-        holder.imageView.setImageBitmap(model.getBitmap());
+        holder.pokedexPokemonImage.setImageBitmap(model.getBitmap());
 
 
         // Défini le texte associé à l'élément de la RecyclerView
-        holder.textView.setText(model.getName());
+        holder.pokedexText.setText(model.getName());
 
         // Supprime la ProgressBar une fois l'image chargée
-        holder.progressBar.setVisibility(View.GONE);
+        holder.pokedexProgressBar.setVisibility(View.GONE);
 
         // Détection du clic sur les images
-        holder.imageView.setOnClickListener(view -> {
+        holder.pokedexPokemonImage.setOnClickListener(view -> {
 
             if (mListener != null) {
                 mListener.onItemClick(position, model.getName());
@@ -84,15 +86,15 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Déclaration des vues associées à chaque élément de la RecyclerView
-        public ImageView imageView;
-        public TextView textView;
-        public ProgressBar progressBar;
+        public ImageView pokedexPokemonImage;
+        public TextView pokedexText;
+        public ProgressBar pokedexProgressBar;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imagePokedex);
-            textView = itemView.findViewById(R.id.namePokemon);
-            progressBar = itemView.findViewById(R.id.progressBar);
+            pokedexPokemonImage = itemView.findViewById(R.id.pokedexPokemonImage);
+            pokedexText = itemView.findViewById(R.id.pokedexText);
+            pokedexProgressBar = itemView.findViewById(R.id.pokedexProgressBar);
         }
     }
 

@@ -1,5 +1,6 @@
 package fr.appok.pokedex;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -26,7 +27,7 @@ import fr.appok.pokedex.requests.RequestAllPokedex;
 public class PokedexActivity extends AppCompatActivity {
 
 
-    public static RecyclerView listePokemons;
+    public static RecyclerView pokedexRecycler;
 
     // Liste des données des Pokémon
     public static List<PokedexModel> data = new ArrayList<>();
@@ -37,8 +38,16 @@ public class PokedexActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pokedex_activity);
 
+        draw();
+
+
+
+    }
+
+    private void draw(){
+
         // Charger l'image de fond
-        Drawable background = getResources().getDrawable(R.drawable.background);
+        @SuppressLint("UseCompatLoadingForDrawables") Drawable background = getResources().getDrawable(R.drawable.background);
 
         // Obtenir la taille de l'écran
         DisplayMetrics metrics = new DisplayMetrics();
@@ -54,47 +63,48 @@ public class PokedexActivity extends AppCompatActivity {
         getWindow().setBackgroundDrawable(new BitmapDrawable(getResources(), resizedBitmap));
 
         // Récupération de la vue RecyclerView
-        listePokemons = findViewById(R.id.listePokemons);
+        pokedexRecycler = findViewById(R.id.pokedexRecycler);
 
         // Récupération de la barre de progression
-        ProgressBar progressBar = findViewById(R.id.progressBar);
-
+        ProgressBar pokedexProgressBar = findViewById(R.id.pokedexProgressBar);
 
         // Initialisation de l'adaptateur avec les données des Pokémon
         PokedexAdapter adapter = new PokedexAdapter(PokedexActivity.data);
 
         // Récupération de la liste des Pokémon
-        getPokemons(listePokemons, progressBar, adapter);
+        getPokemons(pokedexRecycler, pokedexProgressBar, adapter);
 
-        adapter.setOnItemClickListener((position, name) -> {
-
-                Intent intent = new Intent(PokedexActivity.this, PokemonActivity.class);
-
-                intent.putExtra("name", name);
-                startActivity(intent);
-
-        });
-
-
+        events(adapter);
 
     }
 
     // Méthode qui va récupérer la liste des Pokémon de manière asynchrone
-    private void getPokemons(RecyclerView pokedex, ProgressBar progressBar, PokedexAdapter adapter){
+    private void getPokemons(RecyclerView pokedexRecycler, ProgressBar pokedexProgressBar, PokedexAdapter adapter){
 
         // Lancement de la tâche asynchrone pour récupérer la liste des Pokémon
-        new RequestAllPokedex(adapter, "https://pokeapi.co/api/v2/pokemon?limit=151",progressBar).execute();
+        new RequestAllPokedex(adapter, "https://pokeapi.co/api/v2/pokemon?limit=151",pokedexProgressBar).execute();
 
         // Configuration de la vue RecyclerView
-        pokedex.setAdapter(adapter);
+        pokedexRecycler.setAdapter(adapter);
         int spacing = -1200;
-        pokedex.addItemDecoration(new RecyclerView.ItemDecoration() {
+        pokedexRecycler.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 outRect.bottom = spacing;
             }
         });
-        pokedex.setLayoutManager(new GridLayoutManager(this, 3));
+        pokedexRecycler.setLayoutManager(new GridLayoutManager(this, 3));
+    }
+
+    private void events(PokedexAdapter adapter){
+        adapter.setOnItemClickListener((position, name) -> {
+
+            Intent intent = new Intent(PokedexActivity.this, PokemonActivity.class);
+
+            intent.putExtra("name", name);
+            startActivity(intent);
+
+        });
     }
 
 
